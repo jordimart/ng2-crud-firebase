@@ -12,7 +12,7 @@ import { HeroesService } from '../../services/heroes.service';
 })
 export class HeroeComponent implements OnInit {
 
-  heroe: Heroe = {
+  private heroe: Heroe = {
     nombre: "",
     bio: "",
     casa: "Marvel"
@@ -21,11 +21,18 @@ export class HeroeComponent implements OnInit {
   nuevo: boolean = false;
   id: string;
 
-  constructor(private _heroesservice: HeroesService,
+  constructor(private _heroesService: HeroesService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.route.params.subscribe(parametros => { this.id = parametros['id']; })
+    this.route.params
+      .subscribe(parametros => {
+        this.id = parametros['id'];
+        if( this.id !== "nuevo"){
+          this._heroesService.getHeroe( this.id )
+                .subscribe( heroe=> this.heroe = heroe )
+        }
+      })
   }
 
   ngOnInit() {
@@ -36,14 +43,14 @@ export class HeroeComponent implements OnInit {
 
     if (this.id == "nuevo") {
       //insertando
-      this._heroesservice.nuevoHeroe(this.heroe)
+      this._heroesService.nuevoHeroe(this.heroe)
         .subscribe(data => {
           this.router.navigate(['/heroe', data.name])
         },
         error => console.error(error))
     } else {
       //actualizando
-      this._heroesservice.actualizarHeroe(this.heroe, this.id)
+      this._heroesService.actualizarHeroe(this.heroe, this.id)
         .subscribe(data => {
           console.log(data);
         },
@@ -51,6 +58,13 @@ export class HeroeComponent implements OnInit {
     }
 
 
+  }
+
+  agregarNuevo( forma:NgForm ){
+    this.router.navigate(['/heroe','nuevo']);
+    forma.reset({
+      casa:"Marvel"
+    });
   }
 
 }
