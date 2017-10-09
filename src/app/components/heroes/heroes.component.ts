@@ -8,27 +8,27 @@ import { HeroesService } from '../../services/heroes.service';
 })
 export class HeroesComponent implements OnInit {
 
-  heroes:any[] = [];
+  heroes: any[] = [];
+  loading: boolean = true;
 
-  constructor( private _heroesService:HeroesService ) {
+  constructor(private _heroesService: HeroesService) {
 
     this._heroesService.getHeroes()
-    .subscribe( data =>{
-      console.log(data);
-      this.heroes = data;
-
-    })
-   }
+      .subscribe(data => {
+        this.heroes = data;
+        this.loading = false;
+      })
+  }
 
   ngOnInit() {
   }
 
-  borrarHeroe(key$:string ){
+  borrarHeroe(key$: string) {
     this._heroesService.borrarHeroe(key$)
-      .subscribe( respuesta=>{
-        if( respuesta ){
+      .subscribe(respuesta => {
+        if (respuesta) {
           console.log(respuesta);
-        }else{
+        } else {
           delete this.heroes[key$];
         }
 
