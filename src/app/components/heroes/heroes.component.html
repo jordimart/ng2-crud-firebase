@@ -2,13 +2,11 @@
 
 <div class="row ">
   <div class="col-md-12 text-right">
-    <button [routerLink]="['/heroe','nuevo']"
-    class="btn btn-outline-primary"
-    type="button" name="button">Nuevo héroe</button>
+    <button [routerLink]="['/heroe','nuevo']" class="btn btn-outline-primary" type="button" name="button">Nuevo héroe</button>
 
   </div>
 </div>
-  <br />
+<br />
 
 <div class="row animated fadeIn fast">
   <div class="col-md-12">
@@ -19,7 +17,7 @@
             <th>#</th>
             <th>Nombre</th>
             <th>Casa</th>
-            <th>Opciones</th>
+            <th class="text-right">Opciones</th>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +25,14 @@
             <td>{{ i +1 }}</td>
             <td>{{ heroes[k].nombre }}</td>
             <td>{{ heroes[k].casa }}</td>
-            <td></td>
+            <td class="text-right">
+              <button [routerLink]="['/heroe', k]" type="button" class="btn btn-outline-success">
+            Editar
+            </button>
+              <button (click)="borrarHeroe(k)" type="button" class="btn btn-outline-danger">
+          Borrar
+          </button>
+            </td>
           </tr>
         </tbody>
       </table>
