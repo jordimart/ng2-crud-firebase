@@ -28,9 +28,9 @@ export class HeroeComponent implements OnInit {
     this.route.params
       .subscribe(parametros => {
         this.id = parametros['id'];
-        if( this.id !== "nuevo"){
-          this._heroesService.getHeroe( this.id )
-                .subscribe( heroe=> this.heroe = heroe )
+        if (this.id !== "nuevo") {
+          this._heroesService.getHeroe(this.id)
+            .subscribe(heroe => this.heroe = heroe)
         }
       })
   }
@@ -56,14 +56,12 @@ export class HeroeComponent implements OnInit {
         },
         error => console.error(error))
     }
-
-
   }
 
-  agregarNuevo( forma:NgForm ){
-    this.router.navigate(['/heroe','nuevo']);
+  agregarNuevo(forma: NgForm) {
+    this.router.navigate(['/heroe', 'nuevo']);
     forma.reset({
-      casa:"Marvel"
+      casa: "Marvel"
     });
   }
 

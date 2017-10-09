@@ -50,4 +50,10 @@ export class HeroesService {
     .map ( res=>res.json());
   }
 
+  getHeroes( ){
+
+    return this.http.get ( this.heroesURL )
+    .map ( res=>res.json());
+  }
+
 }
